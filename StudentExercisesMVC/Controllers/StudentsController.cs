@@ -121,11 +121,13 @@ namespace StudentExercisesMVC.Controllers
         // GET: Students/Edit/5
         public ActionResult Edit(int id)
         {
-            var viewModel = new StudentEditViewModel() 
-            { 
+            var student = GetStudentByIdWithExercises(id);
+            var viewModel = new StudentEditViewModel()
+            {
                 Cohorts = GetAllCohorts(),
                 Exercises = GetAllExercises(),
-                Student = GetStudentById(id)
+                Student = student,
+                SelectedExerciseIds = student.Exercises.Select(e => e.Id).ToList()
             };
             return View(viewModel);
         }
